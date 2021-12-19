@@ -1,0 +1,12 @@
+http:
+  port: "8081"
+db:
+  host: "db4free.net"
+  port: "3306"
+  user: "ayanc1"
+  password: "luckyTHIRTEEN"
+  database: "movies_bms"
+email:
+  host: "smtp.gmail.com"
+  port: "587"
+  user: "anurag.a.puri@apisero.com"
