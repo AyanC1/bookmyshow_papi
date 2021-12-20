@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:db="http://www.mulesoft.org/schema/mule/db"
-	xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:email="http://www.mulesoft.org/schema/mule/email"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
-http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="5404849a-de43-4ba1-87ad-07423913754e" >
-		<http:listener-connection host="0.0.0.0" port="8081" />
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
 	</http:listener-config>
 	<db:config name="Database_Config" doc:name="Database Config" doc:id="e4d0f43a-bbcc-423c-9b7d-4955bda8e5d7" >
-		<db:my-sql-connection host="db4free.net" port="3306" user="ayanc1" password="luckyTHIRTEEN" database="movies_bms" />
+		<db:my-sql-connection host="${db.host}" port="${db.port}" user="${db.user}" password="${db.password}" database="${db.database}" />
 	</db:config>
-	<email:smtp-config name="Email_SMTP1" doc:name="Email SMTP" doc:id="c29b0f72-b4fb-4237-9aca-9fbb9e42a409" >
-		<email:smtp-connection host="smtp.gmail.com" port="587" user="anurag.a.puri@apisero.com" password="\mg.Z2sn" >
+	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="c29b0f72-b4fb-4237-9aca-9fbb9e42a409" >
+		<email:smtp-connection host="${email.host}" port="${email.port}" user="${email.user}" password="\mg.Z2sn" >
 			<email:properties >
 				<email:property key="mail.smtp.starttls.enable" value="true" />
 			</email:properties>
@@ -22,4 +23,9 @@ http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/em
 	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="a6debc33-0c59-4624-8c30-4427ddaa739a" responseTimeout="120000">
 		<http:request-connection host="localhost" port="8082"/>
 	</http:request-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="1e05445a-7cbf-4546-873c-cdb48da59d39" file="config.yaml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="f094f5e7-410a-46aa-b549-26334c010af3" file="config.yaml" key="${secure.key}">
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<global-property doc:name="Global Property" doc:id="221f4637-c0a2-4f00-bb65-917cfbf078c8" name="secure.key" value="Main Assignment" />
 </mule>

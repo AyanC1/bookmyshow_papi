@@ -7,13 +7,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
-	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="5b1bb794-cde0-4b63-97d6-a563623fa9a1" >
-		<email:smtp-connection host="smtp.gmail.com" port="587" user="masoom.goyal@apisero.com" password="August@2021" >
-			<email:properties >
-				<email:property key="mail.smtp.starttls.enable" value="true" />
-			</email:properties>
-		</email:smtp-connection>
-	</email:smtp-config>
 	<flow name="bookMyShowPAPI" doc:id="4e18e3b7-036a-44fc-9f28-f84f54523f6a" >
 		<http:listener doc:name="Listener" doc:id="dbda5b83-685c-4b7d-a24b-a43a3ef5c138" config-ref="HTTP_Listener_config" path="/order"/>
 		<logger level="INFO" doc:name="initialLogger" doc:id="374b69ec-8839-4daa-a8ac-0b22a4a6c32e" message="#[payload]"/>
@@ -104,7 +97,7 @@ var Price=vars.db_out[0].Price as Number default 0
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<email:send doc:name="Send e-Ticket" doc:id="4e0407b8-2ed0-4821-b090-ca32bda0ced8" config-ref="Email_SMTP1" fromAddress="anurag.a.puri@apisero.com" subject="Ticket Confirmation Details">
+		<email:send doc:name="Send e-Ticket" doc:id="4e0407b8-2ed0-4821-b090-ca32bda0ced8" config-ref="Email_SMTP" fromAddress="anurag.a.puri@apisero.com" subject="Ticket Confirmation Details">
 				<email:to-addresses>
 					<email:to-address value="#[vars.CustomerEmail]" />
 				</email:to-addresses>
