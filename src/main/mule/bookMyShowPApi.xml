@@ -28,7 +28,7 @@ http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/em
 				<flow-ref doc:name="discounts" doc:id="3077dc43-f294-48ba-84c9-41f49baa3a01" name="discounts" />
 			</when>
 			<otherwise>
-				<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;vars.setVar.NoOfSeats as String ++ " seats are not available for this show. Available seats left are : " ++ vars.db_out[0].availableseats as String]' doc:name="seatsNotAvailable" doc:id="aedbdd43-a538-49cb-84da-6e6f23d26002" />
+				<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;vars.NoOfSeats as String ++ " seats are not available for this show. Available seats left are : " ++ vars.db_out[0].availableseats as String]' doc:name="seatsNotAvailable" doc:id="aedbdd43-a538-49cb-84da-6e6f23d26002" />
 			</otherwise>
 		</choice>
 		<logger level="INFO" doc:name="finalLogger" doc:id="869a75e5-c8f2-4a5d-aa31-4deba7b4e6ba" message="#[payload]" />
