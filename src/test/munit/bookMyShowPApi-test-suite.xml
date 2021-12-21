@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="bookMyShowPApi-test-suite.xml" />
+	<munit:test name="bookMyShowPApi-test-suite-bookMyShowPAPITest1" doc:id="d90f95d7-cd77-4e5f-8973-49ff58f5ed37" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="82f24f2d-8a6c-4ab3-adc6-abb2a6400693" >
+				<munit:payload value='{&#10;  "BookingId": 758,&#10;  "MovieName": "Ludo",&#10;  "Location": "PVR Priya",&#10;  "ShowTime": "17:00",&#10;  "ShowDate": "2021-12-25",&#10;  "NoofSeatsBooked": 4,&#10;  "Discount": "10%",&#10;  "TotalPrice": 1260.0&#10;}' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to bookMyShowPAPI" doc:id="8b27de88-cf17-4c03-a8b5-41d40fa574df" name="bookMyShowPAPI"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="1176336c-65fc-420b-a4e9-7597f3cf180e" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
