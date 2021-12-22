@@ -102,6 +102,18 @@ var Price=vars.db_out[0].Price as Number default 0
 					<email:to-address value="#[vars.CustomerEmail]" />
 				</email:to-addresses>
 			<email:body contentType="text/plain" encoding="UTF-8">
+				<email:content ><![CDATA[#[%dw 2.0
+output text/plain
+---
+"Your booking details are as follows - \n\nBooking Id                  : " ++ payload.BookingId
+++ "\nMovie Name                : " ++ payload.MovieName
+++ "\nLocation                     : " ++ payload.Location
+++ "\nShowDate                    : " ++ payload.ShowDate
+++ "\nShowTime                   : " ++ payload.ShowTime
+++ "\nNumber of Seats Booked : " ++ payload.NoofSeatsBooked
+++ "\nDiscount                    : " ++ payload.Discount
+++ "\nTotal Price                 : " ++ payload.TotalPrice
+++ "\n\nThanks for using BookMyShow!"]]]></email:content>
 				</email:body>
 			</email:send>
 		<http:request method="POST" doc:name="Request to OrderDetails" doc:id="f3abee17-9f84-41c0-b884-c004f3ff3a93" config-ref="HTTP_Request_configuration" path="/api/OrderDetails" />
