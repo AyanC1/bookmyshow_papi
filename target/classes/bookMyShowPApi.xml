@@ -7,13 +7,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
-	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="5b1bb794-cde0-4b63-97d6-a563623fa9a1" >
-		<email:smtp-connection host="smtp.gmail.com" port="587" user="masoom.goyal@apisero.com" password="August@2021" >
-			<email:properties >
-				<email:property key="mail.smtp.starttls.enable" value="true" />
-			</email:properties>
-		</email:smtp-connection>
-	</email:smtp-config>
 	<flow name="bookMyShowPAPI" doc:id="4e18e3b7-036a-44fc-9f28-f84f54523f6a" >
 		<http:listener doc:name="Listener" doc:id="dbda5b83-685c-4b7d-a24b-a43a3ef5c138" config-ref="HTTP_Listener_config" path="/order"/>
 		<logger level="INFO" doc:name="initialLogger" doc:id="374b69ec-8839-4daa-a8ac-0b22a4a6c32e" message="#[payload]"/>
@@ -35,7 +28,7 @@ http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/em
 				<flow-ref doc:name="discounts" doc:id="3077dc43-f294-48ba-84c9-41f49baa3a01" name="discounts" />
 			</when>
 			<otherwise>
-				<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;vars.setVar.NoOfSeats as String ++ " seats are not available for this show. Available seats left are : " ++ vars.db_out[0].availableseats as String]' doc:name="seatsNotAvailable" doc:id="aedbdd43-a538-49cb-84da-6e6f23d26002" />
+				<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;vars.NoOfSeats as String ++ " seats are not available for this show. Available seats left are : " ++ vars.db_out[0].availableseats as String]' doc:name="seatsNotAvailable" doc:id="aedbdd43-a538-49cb-84da-6e6f23d26002" />
 			</otherwise>
 		</choice>
 		<logger level="INFO" doc:name="finalLogger" doc:id="869a75e5-c8f2-4a5d-aa31-4deba7b4e6ba" message="#[payload]" />
@@ -104,11 +97,23 @@ var Price=vars.db_out[0].Price as Number default 0
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<email:send doc:name="Send e-Ticket" doc:id="4e0407b8-2ed0-4821-b090-ca32bda0ced8" config-ref="Email_SMTP1" fromAddress="anurag.a.puri@apisero.com" subject="Ticket Confirmation Details">
+		<email:send doc:name="Send e-Ticket" doc:id="4e0407b8-2ed0-4821-b090-ca32bda0ced8" config-ref="Email_SMTP" fromAddress="anurag.a.puri@apisero.com" subject="Ticket Confirmation Details">
 				<email:to-addresses>
 					<email:to-address value="#[vars.CustomerEmail]" />
 				</email:to-addresses>
 			<email:body contentType="text/plain" encoding="UTF-8">
+				<email:content ><![CDATA[#[%dw 2.0
+output text/plain
+---
+"Your booking details are as follows - \n\nBooking Id                  : " ++ payload.BookingId
+++ "\nMovie Name                : " ++ payload.MovieName
+++ "\nLocation                     : " ++ payload.Location
+++ "\nShowDate                    : " ++ payload.ShowDate
+++ "\nShowTime                   : " ++ payload.ShowTime
+++ "\nNumber of Seats Booked : " ++ payload.NoofSeatsBooked
+++ "\nDiscount                    : " ++ payload.Discount
+++ "\nTotal Price                 : " ++ payload.TotalPrice
+++ "\n\nThanks for using BookMyShow!"]]]></email:content>
 				</email:body>
 			</email:send>
 		<http:request method="POST" doc:name="Request to OrderDetails" doc:id="f3abee17-9f84-41c0-b884-c004f3ff3a93" config-ref="HTTP_Request_configuration" path="/api/OrderDetails" />

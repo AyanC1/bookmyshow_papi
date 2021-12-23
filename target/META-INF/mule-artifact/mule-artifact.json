@@ -16,7 +16,9 @@
         "api/OrderManagement.xml",
         "application-types.xml",
         "bookMyShowPApi.xml",
+        "config.yaml",
         "global.xml",
+        "keystore-bmsmain.jks",
         "log4j2.xml"
       ]
     }
