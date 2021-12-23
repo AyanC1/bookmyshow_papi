@@ -29,7 +29,7 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 		<http:request-connection host="ordermanagement-systemapi.us-e2.cloudhub.io" protocol="HTTPS"/>
 	</http:request-config>
 	<configuration-properties doc:name="Configuration properties" doc:id="1e05445a-7cbf-4546-873c-cdb48da59d39" file="config.yaml" />
-	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="f094f5e7-410a-46aa-b549-26334c010af3" file="config.yaml" key="${key}">
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="f094f5e7-410a-46aa-b549-26334c010af3" file="config.yaml" key="demo">
 		<secure-properties:encrypt algorithm="Blowfish" />
 	</secure-properties:config>
 </mule>
