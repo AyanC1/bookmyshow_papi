@@ -3,7 +3,10 @@
 	<classpathentry kind="con" path="org.mule.tooling.MULE_PROJECT_LIB"/>
 	<classpathentry kind="con" path="MULE_LIB/com.mulesoft.munit/munit-tools/2.3.6"/>
 	<classpathentry kind="con" path="MULE_LIB/com.mulesoft.munit/munit-runner/2.3.6"/>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="MULE_LIB/com.mulesoft.modules/mule-secure-configuration-property-module/1.2.3"/>
+=======
+>>>>>>> 186e3b0 (changes)
 	<classpathentry kind="con" path="MULE_LIB/org.mule.connectors/mule-email-connector/1.4.1"/>
 	<classpathentry kind="con" path="MULE_LIB/org.mule.connectors/mule-db-connector/1.10.0"/>
 	<classpathentry kind="con" path="MULE_LIB/org.mule.modules/mule-soapkit-module/1.2.8"/>

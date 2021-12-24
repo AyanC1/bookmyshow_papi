@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>bms_papi</name>
+=======
+	<name>bms_papi_v2</name>
+>>>>>>> 186e3b0 (changes)
 	<comment></comment>
 	<projects>
 	</projects>
